@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="autologger:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="autologger.war">
+      <element id="artifact" artifact-name="autologger:war exploded" />
+    </root>
+  </artifact>
+</component>

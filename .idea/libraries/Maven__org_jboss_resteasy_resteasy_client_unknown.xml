@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.resteasy:resteasy-client:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/resteasy/resteasy-client/unknown/resteasy-client-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/resteasy/resteasy-client/unknown/resteasy-client-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/resteasy/resteasy-client/unknown/resteasy-client-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
