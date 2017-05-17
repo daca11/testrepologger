@@ -1,5 +1,6 @@
 package com.dalexa.business;
 
+import com.dalexa.business.dao.TripManager;
 import com.dalexa.business.entities.Log;
 import com.dalexa.business.entities.Trip;
 

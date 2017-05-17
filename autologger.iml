@@ -68,5 +68,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-library:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.resteasy:resteasy-jackson2-provider:3.0.19.Final" level="project" />
+    <orderEntry type="library" name="jsf2leaf" level="project" />
   </component>
 </module>

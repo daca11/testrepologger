@@ -1,14 +1,16 @@
-package com.dalexa.business;
+package com.dalexa.business.dao;
 
 import com.dalexa.business.entities.Log;
 import com.dalexa.business.entities.Trip;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  * Created by David
  */
+@Stateless
 public class TripManager {
     @PersistenceContext
     private EntityManager em;

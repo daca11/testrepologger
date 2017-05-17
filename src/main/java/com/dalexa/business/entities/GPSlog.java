@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.math.BigDecimal;
 
 /**
  * Created by David
@@ -13,8 +14,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class GPSlog {
     private Integer gpslogId;
     private Log log;
-    private Integer latitude;
-    private Integer longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     public GPSlog() {
     }
@@ -50,22 +51,22 @@ public class GPSlog {
     @Basic
     @Column(name = "latitude", nullable = true)
     @XmlElement(name = "lat")
-    public Integer getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Integer latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
     @Basic
     @Column(name = "longitude", nullable = true)
     @XmlElement(name = "lng")
-    public Integer getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Integer longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 

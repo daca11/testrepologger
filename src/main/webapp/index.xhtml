@@ -3,9 +3,84 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:leaf="http://java.sun.com/jsf/composite/jsf2leaf">
+<h:head>
+</h:head>
 <h:body>
-    <h:outputText value="#{indexController.hello}"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <!--<h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>-->
+    <h:outputStylesheet library="css" name="ui.min.css"/>
+    <h:outputStylesheet library="css" name="autologger.css"/>
+
+
+    <p:outputPanel styleClass="container-fluid">
+        <h:form>
+            <p:outputPanel styleClass="row">
+                <p:outputPanel styleClass="col-xs-6">
+                    <p:outputPanel styleClass="panel panel-default">
+                        <p:outputPanel styleClass="panel-heading">Trips</p:outputPanel>
+                        <p:outputPanel styleClass="panel-body">
+                            <p:dataTable var="trip" value="#{indexController.trips}" tableStyleClass="table table-striped">
+                                <p:column headerText="ID" style="width: 10%">
+                                    <h:outputText value="#{trip.id}"/>
+                                </p:column>
+                                <p:column headerText="First log date" style="width: 45%">
+                                    <h:outputText value="#{trip.firstLogTime}"/>
+                                </p:column>
+                                <p:column headerText="Last log date" style="width: 45%;">
+                                    <h:outputText value="#{trip.lastLogTime}"/>
+                                </p:column>
+                                <p:column style="width: 45%;">
+                                    <p:commandButton actionListener="#{indexController.selectTrip(trip)}"
+                                                     styleClass="btn btn-default" value="View" update="@form"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </p:outputPanel>
+                <p:outputPanel styleClass="col-xs-6">
+                    <p:outputPanel styleClass="panel panel-default">
+                        <p:outputPanel styleClass="panel-heading">Map</p:outputPanel>
+                        <p:outputPanel styleClass="panel-body">
+                            <leaf:mapAdvanced map="#{indexController.map}" />
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </p:outputPanel>
+            </p:outputPanel>
+            <p:outputPanel styleClass="row">
+                <p:outputPanel styleClass="col-xs-12" id="pnlLogs">
+                    <p:outputPanel styleClass="panel panel-default">
+                        <p:outputPanel styleClass="panel-heading">OBD</p:outputPanel>
+                        <p:outputPanel styleClass="panel-body">
+                            <p:dataTable var="log" value="#{indexController.logs}"
+                                         tableStyleClass="table table-striped">
+                                <p:column headerText="Time">
+                                    <h:outputText value="#{log.time}"/>
+                                </p:column>
+                                <p:column headerText="RPM">
+                                    <h:outputText value="#{log.obdLog.rpm}"/>
+                                </p:column>
+                                <p:column headerText="Speed">
+                                    <h:outputText value="#{log.obdLog.speed}"/>
+                                </p:column>
+                                <p:column headerText="Throttle">
+                                    <h:outputText value="#{log.obdLog.throttle}"/>
+                                </p:column>
+                                <p:column headerText="Load">
+                                    <h:outputText value="#{log.obdLog.load}"/>
+                                </p:column>
+                                <p:column headerText="Fuel">
+                                    <h:outputText value="#{log.obdLog.fuel}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </p:outputPanel>
+            </p:outputPanel>
+        </h:form>
+    </p:outputPanel>
+
+    <h:outputScript library="js" name="bootstrap.min.js"/>
 </h:body>
 </html>

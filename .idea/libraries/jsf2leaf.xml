@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jsf2leaf">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/jsf2leaf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
