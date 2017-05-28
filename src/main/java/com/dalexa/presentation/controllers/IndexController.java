@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by David
@@ -47,32 +48,40 @@ public class IndexController implements Serializable {
 
     public void selectTrip(TripInfo selectedTrip){
         this.logs = tripRetriever.getLogs(selectedTrip.getId());
-        this.map = new Map();
+        this.map = null;
         Layer markerLayer = new Layer();
         Layer polyLayer = new Layer();
         Polyline polyLine = new Polyline();
 
         for (Log log : logs) {
-            //TODO: what if gpslog null?
-            LatLong position = new LatLong(log.getGpsLog().getLatitude().toString(),
-                    log.getGpsLog().getLongitude().toString());
+            if (log.getGpsLog() != null) {
+                LatLong position = new LatLong(log.getGpsLog().getLatitude().toString(),
+                        log.getGpsLog().getLongitude().toString());
 
-            markerLayer.addMarker(new Marker(position));
-            polyLine.addPoint(position);
+                markerLayer.addMarker(new Marker(position));
+                polyLine.addPoint(position);
+            }
         }
 
         polyLayer.addPolyline(polyLine);
 
         //TODO: associate a marker with a obd log, change colour, click a marker
-        map.setWidth("600px") //TODO: remove overflow, responsive...
-                .setHeight("390px")
-                .setCenter(
-                        new LatLong(
-                                logs.get(0).getGpsLog().getLatitude().toString(),
-                                logs.get(0).getGpsLog().getLongitude().toString()
-                        )
-                ).setZoom(13);
-        map.addLayer(markerLayer).addLayer(polyLayer);
+        //TODO: responsive (javascript on resize)
+        //TODO: refresh map!!!
+
+        if (!logs.isEmpty()){
+            Optional<Log> first = logs.stream().filter(l -> l.getGpsLog() != null).findFirst();
+            first.ifPresent(log ->
+                    this.map = new Map().setWidth("578px").setHeight("360px").setZoom(13)
+                    .setCenter(
+                            new LatLong(
+                                    log.getGpsLog().getLatitude().toString(),
+                                    log.getGpsLog().getLongitude().toString()
+                            )
+                    )
+                    .addLayer(markerLayer).addLayer(polyLayer)
+            );
+        }
     }
 
     public List<TripInfo> getTrips() {

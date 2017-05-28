@@ -18,7 +18,7 @@
         <h:form>
             <p:outputPanel styleClass="row">
                 <p:outputPanel styleClass="col-xs-6">
-                    <p:outputPanel styleClass="panel panel-default">
+                    <p:outputPanel styleClass="panel panel-primary">
                         <p:outputPanel styleClass="panel-heading">Trips</p:outputPanel>
                         <p:outputPanel styleClass="panel-body">
                             <p:dataTable var="trip" value="#{indexController.trips}" tableStyleClass="table table-striped">
@@ -43,7 +43,7 @@
                     <p:outputPanel styleClass="panel panel-default">
                         <p:outputPanel styleClass="panel-heading">Map</p:outputPanel>
                         <p:outputPanel styleClass="panel-body">
-                            <leaf:mapAdvanced map="#{indexController.map}" />
+                            <leaf:mapAdvanced map="#{indexController.map}" rendered="#{indexController.map ne null}" />
                         </p:outputPanel>
                     </p:outputPanel>
                 </p:outputPanel>
@@ -57,6 +57,9 @@
                                          tableStyleClass="table table-striped">
                                 <p:column headerText="Time">
                                     <h:outputText value="#{log.time}"/>
+                                </p:column>
+                                <p:column headerText="Position">
+                                    <p:button styleClass="btn btn-default" icon="fa fa-bullseye" value="" rendered="#{log.gpsLog ne null}"/>
                                 </p:column>
                                 <p:column headerText="RPM">
                                     <h:outputText value="#{log.obdLog.rpm}"/>
