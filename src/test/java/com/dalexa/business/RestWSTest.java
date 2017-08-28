@@ -20,7 +20,7 @@ public class RestWSTest {
 
 
         Response r = ClientBuilder.newClient()
-                .target("http://localhost:8080/autologger/rest/")
+                .target("http://localhost:8080/autologger/rest/video")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json("{\"message\":\"Hello!\"}"));
 

@@ -3,20 +3,21 @@ package com.dalexa.business.entities;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.math.BigDecimal;
 
 /**
  * Created by David
  */
 @XmlRootElement
 @Entity
-public class OBDlog {
+public class OBDlog { //TODO: poner floats donde toca (load y speed son ints, poner todo floats)
     private Integer obdlogId;
     private Log log;
-    private Integer rpm;
-    private Integer speed;
-    private Integer throttle;
-    private Integer load;
-    private Integer fuel;
+    private BigDecimal rpm;
+    private BigDecimal speed;
+    private BigDecimal throttle;
+    private BigDecimal load;
+    private BigDecimal fuel;
 
     public OBDlog() {
     }
@@ -54,51 +55,51 @@ public class OBDlog {
 
     @Basic
     @Column(name = "rpm", nullable = true)
-    public Integer getRpm() {
+    public BigDecimal getRpm() {
         return rpm;
     }
 
-    public void setRpm(Integer rpm) {
+    public void setRpm(BigDecimal rpm) {
         this.rpm = rpm;
     }
 
     @Basic
     @Column(name = "speed", nullable = true)
-    public Integer getSpeed() {
+    public BigDecimal getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Integer speed) {
+    public void setSpeed(BigDecimal speed) {
         this.speed = speed;
     }
 
     @Basic
     @Column(name = "throttle", nullable = true)
-    public Integer getThrottle() {
+    public BigDecimal getThrottle() {
         return throttle;
     }
 
-    public void setThrottle(Integer throttle) {
+    public void setThrottle(BigDecimal throttle) {
         this.throttle = throttle;
     }
 
     @Basic
-    @Column(name = "load", nullable = true)
-    public Integer getLoad() {
+    @Column(name = "load1", nullable = true)
+    public BigDecimal getLoad() {
         return load;
     }
 
-    public void setLoad(Integer load) {
+    public void setLoad(BigDecimal load) {
         this.load = load;
     }
 
     @Basic
     @Column(name = "fuel", nullable = true)
-    public Integer getFuel() {
+    public BigDecimal getFuel() {
         return fuel;
     }
 
-    public void setFuel(Integer fuel) {
+    public void setFuel(BigDecimal fuel) {
         this.fuel = fuel;
     }
 

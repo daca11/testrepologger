@@ -11,6 +11,10 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>detail</from-outcome>
+            <to-view-id>/detail.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
 </faces-config>

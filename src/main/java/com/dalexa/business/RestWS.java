@@ -1,6 +1,7 @@
 package com.dalexa.business;
 
 import com.dalexa.business.dao.TripManager;
+import com.dalexa.business.entities.CameraEvent;
 import com.dalexa.business.entities.Log;
 import com.dalexa.business.entities.Trip;
 
@@ -60,6 +61,32 @@ public class RestWS {
         //TODO: In the python client -> if not 200 then save it for later
         return Response.ok().build();
     }
+
+    /**
+     * Updates existing log entry with camera event
+     * @param cameraEvent the received cameraEvent from Autobox
+     * @return A response code
+     * Response 200 if persisted
+     * Response 404 if trip not found
+     * Response 403 if trip closed
+     */
+    @POST
+    @Path("/video")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postVideo(CameraEvent cameraEvent){
+        Trip trip = tripManager.findTrip(cameraEvent.getTrip().getTripId());
+        if (trip == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        cameraEvent.setTrip(trip);
+
+        tripManager.updateCameraEvent(cameraEvent);
+        //TODO: In the python client -> if not 200 then save it for later
+        return Response.ok().build();
+    }
+
 
 
 }

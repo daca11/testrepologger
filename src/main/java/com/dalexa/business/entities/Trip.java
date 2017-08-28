@@ -13,8 +13,9 @@ import java.util.List;
 @Entity(name = "trip")
 public class Trip {
     private Integer tripId;
-    private boolean withEvents;
+    private boolean dummy;
     private List<Log> logs;
+    private List<CameraEvent> cameraEvents;
 
     public Trip() {
     }
@@ -31,14 +32,14 @@ public class Trip {
         this.tripId = tripId;
     }
 
-    @Column(name = "withEvents", nullable = false)
+    @Column(name = "dummy")
     @XmlTransient
-    public boolean isWithEvents() {
-        return withEvents;
+    public boolean getDummy() {
+        return dummy;
     }
 
-    public void setWithEvents(boolean withEvents) {
-        this.withEvents = withEvents;
+    public void setDummy(boolean dummy) {
+        this.dummy = dummy;
     }
 
     //    @Basic
@@ -62,7 +63,6 @@ public class Trip {
 //    public void setEndDate(LocalDateTime endDate) {
 //        this.endDate = endDate;
 //    }
-
     @OneToMany(mappedBy = "trip")
     public List<Log> getLogs() {
         return logs;
@@ -70,6 +70,15 @@ public class Trip {
 
     public void setLogs(List<Log> logs) {
         this.logs = logs;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    public List<CameraEvent> getCameraEvents() {
+        return cameraEvents;
+    }
+
+    public void setCameraEvents(List<CameraEvent> cameraEvents) {
+        this.cameraEvents = cameraEvents;
     }
 
     @Override

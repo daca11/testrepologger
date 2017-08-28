@@ -22,6 +22,7 @@
         <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="AUTOLOGGER-PU" value="0b8e1dbf-493d-48c7-aa03-105b3b3c7245" />
+          <factory-entry name="noname-a.xml@0" value="0b8e1dbf-493d-48c7-aa03-105b3b3c7245" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

@@ -2,3 +2,7 @@
     height:390px;
     overflow-y: auto;
 }
+
+#pnl_map{
+    height: 430px;
+}

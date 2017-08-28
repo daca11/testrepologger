@@ -19,6 +19,7 @@ public class Log {
     private GPSlog gpsLog;
     private OBDlog obdLog;
     private Trip trip;
+    private boolean event;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,6 +70,15 @@ public class Log {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+    @Basic
+    @Column(name = "event", nullable = false)
+    public boolean isEvent() {
+        return event;
+    }
+
+    public void setEvent(boolean event) {
+        this.event = event;
     }
 
     @Override

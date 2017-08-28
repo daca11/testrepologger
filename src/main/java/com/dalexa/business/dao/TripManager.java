@@ -1,5 +1,6 @@
 package com.dalexa.business.dao;
 
+import com.dalexa.business.entities.CameraEvent;
 import com.dalexa.business.entities.Log;
 import com.dalexa.business.entities.Trip;
 
@@ -25,5 +26,9 @@ public class TripManager {
 
     public Log updateLog(Log log) {
         return em.merge(log);
+    }
+
+    public CameraEvent updateCameraEvent(CameraEvent ce) {
+        return em.merge(ce);
     }
 }
