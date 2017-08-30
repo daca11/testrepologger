@@ -16,12 +16,12 @@
 
     <p:outputPanel styleClass="container-fluid">
         <h:form prependId="false">
-            <p:remoteCommand action="#{detailController.loadMap}" autoRun="true" update="pnl_map" oncomplete="PF('bui_map').hide()"/>
-            <p:remoteCommand action="#{detailController.loadLogs}" autoRun="true" update="pnl_logs" oncomplete="PF('bui_logs').hide()"/>
-            <p:remoteCommand action="#{detailController.loadCameraEvents}" autoRun="true" update="pnl_cam" oncomplete="PF('bui_cam').hide()"/>
+            <p:remoteCommand action="#{detailController.loadMap}" autoRun="true" update="pnl_map" oncomplete="reformatTable()" />
+            <p:remoteCommand action="#{detailController.loadLogs}" autoRun="true" update="pnl_logs" oncomplete="reformatTable()" />
+            <p:remoteCommand action="#{detailController.loadCameraEvents}" autoRun="true" update="pnl_cam" oncomplete="reformatTable()" />
 
-            <p:blockUI id="bui_map" widgetVar="bui_map" block="row_map" blocked="true"/>
-            <p:blockUI id="bui_logs" widgetVar="bui_logs" block="row_logs" blocked="true"/>
+            <!--<p:blockUI id="bui_map" widgetVar="bui_map" block="row_map" blocked="true"/>-->
+            <!--<p:blockUI id="bui_logs" widgetVar="bui_logs" block="row_logs" blocked="true"/>-->
 
             <p:outputPanel styleClass="row" style="margin-top:10px">
                 <p:outputPanel styleClass="col-xs-12">
@@ -48,9 +48,9 @@
                     <!-- datatable eventCamera -->
                     <p:dataTable value="#{detailController.cameraEvents}"
                                  var="c" tableStyleClass="table table-striped">
-                        <p:column headerText="Event #">
-                            <h:outputText value="#{c.cameraEventId}" />
-                        </p:column>
+                        <!--<p:column headerText="Event #">-->
+                            <!--<h:outputText value="#{c.cameraEventId}" />-->
+                        <!--</p:column>-->
                         <p:column headerText="Time">
                             <h:outputText value="#{c.time}"/>
                         </p:column>
@@ -69,7 +69,7 @@
                     <p:dataTable var="log" value="#{detailController.logs}"
                                  tableStyleClass="table table-striped">
                         <p:column headerText="Time">
-                            <h:outputText value="#{log.time}"/>
+                            <h:outputText value="#{log.time}" styleClass="#{log.event ? 'danger' : ''}"/>
                         </p:column>
                         <!--<p:column headerText="Position">-->
                             <!--<p:button styleClass="btn btn-default" icon="fa fa-bullseye" value="" rendered="#{log.gpsLog ne null}"/>-->
@@ -96,5 +96,6 @@
     </p:outputPanel>
 
     <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="autologger.js"/>
 </h:body>
 </html>

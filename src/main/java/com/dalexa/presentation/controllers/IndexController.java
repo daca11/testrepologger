@@ -40,6 +40,7 @@ public class IndexController implements Serializable {
             Object[] minMaxDates = tripRetriever.getTripDates(tripId);
             trip.setFirstLogTime((LocalDateTime) minMaxDates[0]);
             trip.setLastLogTime((LocalDateTime) minMaxDates[1]);
+            trip.setWithEvents(tripRetriever.hasEvents(tripId));
 
             trips.add(trip);
         }

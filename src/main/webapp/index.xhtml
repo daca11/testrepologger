@@ -31,7 +31,7 @@
                         <h1>Trips</h1>
                         <p:dataTable var="trip" value="#{indexController.trips}" tableStyleClass="table table-striped">
                             <p:column headerText="ID" style="width: 10%">
-                                <h:outputText value="#{trip.id}"/>
+                                <h:outputText value="#{trip.id}" styleClass="#{trip.withEvents ? 'danger' : ''}"/>
                             </p:column>
                             <p:column headerText="First log date" style="width: 45%">
                                 <h:outputText value="#{trip.firstLogTime}"/>
@@ -51,5 +51,6 @@
     </p:outputPanel>
 
     <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="autologger.js"/>
 </h:body>
 </html>

@@ -10,6 +10,7 @@
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.0" />
           <element id="library" level="project" name="Maven: org.omnifaces:omnifaces:2.3" />
           <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.2" />
+          <element id="library" level="project" name="Maven: com.jsf2leaf:jsf2leaf:1.5-SNAPSHOT" />
         </element>
       </element>
       <element id="directory" name="META-INF">

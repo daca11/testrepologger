@@ -61,6 +61,7 @@ public class TripRetriever {
                         .add(Projections.property("throttle"), "throttle")
                         .add(Projections.property("load"), "load")
                         .add(Projections.property("fuel"), "fuel")
+                        .add(Projections.property("l.event"), "event")
                 )
                 .setResultTransformer(Transformers.aliasToBean(OBDInfo.class))
                 .list();
@@ -78,6 +79,16 @@ public class TripRetriever {
         return session.createCriteria(CameraEvent.class)
                 .createAlias("trip", "t")
                 .add(Restrictions.eq("t.tripId", tripId))
+                .addOrder(Order.asc("time"))
+                .addOrder(Order.asc("cameraId"))
                 .list();
+    }
+
+    public Boolean hasEvents(Integer tripId) {
+        Long eventCount = (Long) session.createCriteria(CameraEvent.class)
+                .createAlias("trip", "t")
+                .add(Restrictions.eq("t.tripId", tripId))
+                .setProjection(Projections.rowCount()).uniqueResult();
+        return eventCount > 0;
     }
 }

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by David
@@ -47,28 +48,55 @@ public class DetailController implements Serializable {
         Layer polyLayer = new Layer();
         Polyline polyLine = new Polyline();
 
-        for (GPSlog p : positions) {
-            LatLong position = new LatLong(p.getLatitude().toString(), p.getLongitude().toString());
-            markerLayer.addMarker(new Marker(position));
-            polyLine.addPoint(position);
-        }
+        if (!positions.isEmpty()){
+            GPSlog firstPos = positions.get(0);
+            LatLong position = new LatLong(firstPos.getLatitude().toString(), firstPos.getLongitude().toString());
+            Marker marker = new Marker(position, "Start at " + firstPos.getLog().getTime());
+            Icon iconStart = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-start.png");
+            marker.setIcon(iconStart);
+            markerLayer.addMarker(marker);
 
-        polyLayer.addPolyline(polyLine);
+            GPSlog lastPos = positions.get(positions.size()-1);
+            LatLong position2 = new LatLong(lastPos.getLatitude().toString(), lastPos.getLongitude().toString());
+            Marker marker2 = new Marker(position2, "Finish at " + lastPos.getLog().getTime());
+            Icon iconFinish = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-finish.png");
+            marker2.setIcon(iconFinish);
+            markerLayer.addMarker(marker2);
+
+
+            for (GPSlog p : positions) {
+                LatLong position3 = new LatLong(p.getLatitude().toString(), p.getLongitude().toString());
+                polyLine.addPoint(position3);
+            }
+
+            Icon iconEvent = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-event.png");
+            for (GPSlog event : positions.stream().filter(p -> p.getLog().isEvent()).collect(Collectors.toList())) {
+                LatLong positionE = new LatLong(event.getLatitude().toString(), event.getLongitude().toString());
+                Marker markerE = new Marker(positionE, "Event at " + event.getLog().getTime());
+                markerE.setIcon(iconEvent);
+                markerLayer.addMarker(markerE);
+            }
+
+            polyLayer.addPolyline(polyLine);
+            polyLayer.setPan(true);
 
         //TODO: associate a marker with a obd log, change colour, click a marker
         //TODO: responsive (javascript on resize)
         //TODO: refresh map!!!
 
-        if (!positions.isEmpty()) {
-            GPSlog first = positions.get(0);
-            this.map = new Map().setWidth("578px").setHeight("360px").setZoom(13)
+            // Coordenadas Mallorca
+            String lat = "39.616667";
+            String lng = "2.983333";
+            int zoom = 12;
+
+            this.map = new Map().setWidth("578px").setHeight("360px").setZoom(zoom)
                     .setCenter(
                             new LatLong(
-                                    first.getLatitude().toString(),
-                                    first.getLongitude().toString()
+                                    lat,lng
                             )
                     )
                     .addLayer(markerLayer).addLayer(polyLayer);
+            this.map.setMiniMap(false);
         }
     }
     public void loadCameraEvents() {

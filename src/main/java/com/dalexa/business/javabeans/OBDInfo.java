@@ -14,6 +14,7 @@ public class OBDInfo {
     private BigDecimal throttle;
     private BigDecimal load;
     private BigDecimal fuel;
+    private boolean event;
 
     public Integer getId() {
         return id;
@@ -69,5 +70,13 @@ public class OBDInfo {
 
     public void setFuel(BigDecimal fuel) {
         this.fuel = fuel;
+    }
+
+    public boolean isEvent() {
+        return event;
+    }
+
+    public void setEvent(boolean event) {
+        this.event = event;
     }
 }

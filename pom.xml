@@ -100,6 +100,13 @@
             <!--<artifactId>jackson-module-jaxb-annotations</artifactId>-->
             <!--<scope>provided</scope>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.jsf2leaf</groupId>
+            <artifactId>jsf2leaf</artifactId>
+            <version>1.5-SNAPSHOT</version>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>

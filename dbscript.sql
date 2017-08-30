@@ -1,0 +1,54 @@
+DROP DATABASE IF EXISTS autolog;
+DROP USER IF EXISTS autouser;
+CREATE DATABASE autolog default CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE USER autouser IDENTIFIED BY 'autopassword';
+GRANT ALL ON autolog.* to autouser;
+
+CREATE TABLE autolog.trip
+(
+  tripId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  dummy BIT NULL
+#   withEvents BIT NOT NULL DEFAULT FALSE #FIXME: QUITAR!
+  #   startDate DATETIME NOT NULL,
+  #   endDate DATETIME
+);
+
+CREATE TABLE autolog.log
+(
+  logId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  tripId INT NOT NULL,
+  time DATETIME NOT NULL,
+  event BIT NOT NULL DEFAULT FALSE,
+  CONSTRAINT trip_log_fk FOREIGN KEY (tripId) REFERENCES trip (tripId) ON DELETE CASCADE  -- MANYTOONE
+);
+
+CREATE TABLE autolog.OBDlog
+(
+  obdlogId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  logId INT NOT NULL,
+  rpm FLOAT,
+  speed FLOAT,
+  throttle FLOAT,
+  load1 FLOAT,
+  fuel FLOAT,
+  CONSTRAINT OBDlog_log_fk FOREIGN KEY (logId) REFERENCES log (logId) ON DELETE CASCADE -- ONETOONE
+);
+
+CREATE TABLE autolog.GPSlog
+(
+  gpslogId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  logId INT NOT NULL,
+  latitude DECIMAL(13,10),
+  longitude DECIMAL(13,10),
+  CONSTRAINT GPSlog_log_fk FOREIGN KEY (logId) REFERENCES log (logId) ON DELETE CASCADE  -- ONETOONE
+);
+
+CREATE TABLE autolog.cameraEvent
+(
+  cameraEventId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  tripId INT NOT NULL,
+  time DATETIME NOT NULL,
+  path VARCHAR(2083) NULL,
+  cameraId INT NOT NULL,
+  CONSTRAINT trip_cameraEvent_fk FOREIGN KEY (tripId) REFERENCES trip (tripId) ON DELETE CASCADE  -- MANYTOONE
+);
