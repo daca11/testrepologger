@@ -9,9 +9,11 @@ import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,14 +54,14 @@ public class DetailController implements Serializable {
             GPSlog firstPos = positions.get(0);
             LatLong position = new LatLong(firstPos.getLatitude().toString(), firstPos.getLongitude().toString());
             Marker marker = new Marker(position, "Start at " + firstPos.getLog().getTime());
-            Icon iconStart = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-start.png");
+            Icon iconStart = new Icon(25, 41, 12, 41, -12, -45, "img:marker-icon-start.png");
             marker.setIcon(iconStart);
             markerLayer.addMarker(marker);
 
             GPSlog lastPos = positions.get(positions.size()-1);
             LatLong position2 = new LatLong(lastPos.getLatitude().toString(), lastPos.getLongitude().toString());
             Marker marker2 = new Marker(position2, "Finish at " + lastPos.getLog().getTime());
-            Icon iconFinish = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-finish.png");
+            Icon iconFinish = new Icon(25, 41, 12, 41, -12, -45, "img:marker-icon-finish.png");
             marker2.setIcon(iconFinish);
             markerLayer.addMarker(marker2);
 
@@ -69,7 +71,7 @@ public class DetailController implements Serializable {
                 polyLine.addPoint(position3);
             }
 
-            Icon iconEvent = new Icon(25, 41, 25, 41, -12, -45, "img:marker-icon-event.png");
+            Icon iconEvent = new Icon(25, 41, 12, 41, -12, -45, "img:marker-icon-event.png");
             for (GPSlog event : positions.stream().filter(p -> p.getLog().isEvent()).collect(Collectors.toList())) {
                 LatLong positionE = new LatLong(event.getLatitude().toString(), event.getLongitude().toString());
                 Marker markerE = new Marker(positionE, "Event at " + event.getLog().getTime());
@@ -103,6 +105,32 @@ public class DetailController implements Serializable {
         this.cameraEvents = this.tripRetriever.getCameraEvents(selectedTripId);
     }
 
+    public void downloadFile(CameraEvent cameraEvent) throws IOException {
+            byte[] file = null;
+
+            InputStream is = new FileInputStream(new File(cameraEvent.getPath()));
+            file = new byte[is.available()];
+            int offset = 0;
+            int numRead = 0;
+            while (offset < file.length
+                    && (numRead=is.read(file, offset, file.length-offset)) >= 0) {
+                offset += numRead;
+            }
+            is.close();
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ExternalContext ec = fc.getExternalContext();
+
+            ec.responseReset();
+            ec.setResponseContentType(ec.getMimeType(cameraEvent.getPath())); // http://www.w3schools.com/media/media_mimeref.asp for all types.
+            //ec.setResponseContentLength(contentLength); // This header is optional.
+            ec.setResponseHeader("Content-Disposition", "attachment; filename=\""
+                    + "video" + "\"");
+
+            OutputStream output = ec.getResponseOutputStream();
+            output.write(file);
+
+            fc.responseComplete();
+    }
 
     //Getters / Setters
 

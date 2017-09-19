@@ -72,6 +72,7 @@ public class TripRetriever {
                 .createAlias("log", "l")
                 .createAlias("l.trip", "t")
                 .add(Restrictions.eq("t.tripId", tripId))
+                .addOrder(Order.asc("l.time"))
                 .list();
     }
 

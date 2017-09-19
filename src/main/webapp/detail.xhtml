@@ -58,7 +58,8 @@
                             <h:outputText value="#{c.cameraId}"/>
                         </p:column>
                         <p:column headerText="Download">
-                            <h:commandButton styleClass="btn btn-default" value="Download" />
+                            <h:commandButton styleClass="btn btn-default" value="Download"
+                            action="#{detailController.downloadFile(c)}"/>
                         </p:column>
                     </p:dataTable>
                 </p:outputPanel>
